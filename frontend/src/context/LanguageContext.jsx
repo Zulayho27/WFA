@@ -216,7 +216,6 @@ const translations = {
         prepTime: 'Tayyorlash',
         cookTime: 'Pishirish',
         totalTime: 'Umumiy vaqt',
-        servings: 'Porsiyalar',
         ingredients: 'Masalliqlar',
         instructions: 'Ko\'rsatmalar',
         culturalContext: 'Madaniy kontekst',
