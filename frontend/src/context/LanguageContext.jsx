@@ -14,11 +14,66 @@ const translations = {
         register: 'Регистрация',
         logout: 'Выйти',
 
-        // Landing Page
-        heroTitle: 'Кулинарное Путешествие По Миру',
-        heroSubtitle: 'Откройте для себя аутентичные рецепты из разных уголков планеты',
+        // Landing Page - Hero Section
+        landingHeroTitle: 'Готовка стала веселой и легкой: Раскройте своего внутреннего шеф-повара',
+        landingHeroSubtitle: 'Откройте для себя более',
+        landingHeroRecipes: '10,000 рецептов',
+        landingHeroDescription: 'в вашей руке с лучшими рецептами. Поможем вам найти легкий способ готовить.',
         exploreRecipes: 'Исследовать рецепты',
+
+        // Landing Page - Community
+        fromOurCommunity: 'От нашего сообщества',
+        spaghettiReview: 'Должен сказать, рецепт спагетти болоньезе просто потрясающий! Я всегда был фанатом итальянской кухни, но немного боялся готовить это классическое блюдо дома.',
+        chickenReview: 'Всегда немного боялся запекать целую курицу, опасаясь, что это может быть слишком сложно, но ваш рецепт изменил это для меня. Инструкции были настолько ясными и легкими для выполнения.',
+        potPieReview: 'Я всегда был фанатом сытной домашней еды, и рецепт овощного пирога на этой платформе полностью превзошел мои ожидания.',
+        saladReview: 'Я всегда считал себя энтузиастом салатов, и этот рецепт салата - настоящий кулинарный шедевр, который поднял мою любовь к зелени на совершенно новый уровень.',
+
+        // Landing Page - Recipe Showcase
+        discoverCreateShare: 'Открывайте, Создавайте, Делитесь',
+        popularRecipesWeek: 'Посмотрите наши самые популярные рецепты этой недели',
+        seeAll: 'Смотреть все',
+        viewRecipe: 'Посмотреть рецепт',
+        creamySalad: 'Кремовый салат',
+        tofuSoup: 'Суп с тофу и томатами',
+        crunchyPotatoes: 'Хрустящий картофель',
+        mushroomSoup: 'Грибной суп',
+        raspberryPancake: 'Блинчики с малиной',
+        beefTeriyaki: 'Говядина терияки',
+        mins: 'мин',
+        serving: 'порция',
+        servings: 'порций',
+        easy: 'Легко',
+        medium: 'Средне',
+
+        // Landing Page - Mobile App
+        mobileAppTitle: 'Наслаждайтесь радостью готовки - скачайте на iPhone или Android. Ваше кулинарное приключение начинается сейчас!',
+        appStore: 'App Store',
+        googlePlay: 'Google Play',
+
+        // Landing Page - About
+        aboutUs: 'О нас',
+        aboutText: 'Наши рецепты - это сердце и душа нашего кулинарного сообщества, и они отражают нашу приверженность предоставлению вам незабываемых и восхитительных кулинарных впечатлений.',
+        quickRecipesTip: '50+ быстрых рецептов, которые легко приготовить!',
         learnMore: 'Узнать больше',
+
+        // Landing Page - Footer
+        menu: 'Меню',
+        categories: 'Категории',
+        social: 'Соцсети',
+        breakfast: 'Завтрак',
+        lunch: 'Обед',
+        dinner: 'Ужин',
+        dessert: 'Десерт',
+        drink: 'Напитки',
+        instagram: 'Instagram',
+        twitter: 'Twitter',
+        youtube: 'Youtube',
+        facebook: 'Facebook',
+        newsletterSignup: 'Подпишитесь на нашу рассылку',
+        emailPlaceholder: 'Ваш Email адрес',
+        submit: 'Отправить',
+        share: 'Поделиться',
+        like: 'Нравится',
 
         // Search & Filters
         search: 'Поиск рецептов...',
@@ -32,7 +87,6 @@ const translations = {
         prepTime: 'Подготовка',
         cookTime: 'Приготовление',
         totalTime: 'Общее время',
-        servings: 'Порции',
         ingredients: 'Ингредиенты',
         instructions: 'Инструкции',
         culturalContext: 'Культурный контекст',
@@ -89,11 +143,66 @@ const translations = {
         register: 'Ro\'yxatdan o\'tish',
         logout: 'Chiqish',
 
-        // Landing Page
-        heroTitle: 'Dunyo Bo\'ylab Pazandachilik Sayohati',
-        heroSubtitle: 'Dunyoning turli burchaklaridan asl retseptlarni kashf eting',
+        // Landing Page - Hero Section
+        landingHeroTitle: 'Ovqat tayyorlash qiziqarli va oson bo\'ldi: Ichki oshpazingizni oching',
+        landingHeroSubtitle: 'Kashf eting',
+        landingHeroRecipes: '10,000 dan ortiq retsept',
+        landingHeroDescription: 'qo\'lingizda eng yaxshi retseptlar bilan. Ovqat tayyorlashning oson yo\'lini topishga yordam beramiz.',
         exploreRecipes: 'Retseptlarni o\'rganish',
+
+        // Landing Page - Community
+        fromOurCommunity: 'Jamiyatimizdan',
+        spaghettiReview: 'Aytishim kerakki, Spagetti Bolonez retsepti juda ajoyib! Men har doim italyan oshxonasining muxlisi bo\'lganman, lekin uyda bu klassik taomni tayyorlashdan biroz qo\'rqardim.',
+        chickenReview: 'Har doim butun tovuqni pishirishdan qo\'rqardim, bu juda murakkab bo\'lishi mumkin deb o\'ylagandim, lekin sizning retseptingiz buni o\'zgartirdi. Ko\'rsatmalar juda aniq va bajarish uchun oson edi.',
+        potPieReview: 'Men har doim to\'yimli uy taomlarining muxlisi bo\'lganman va bu platformadagi sabzavotli pirog retsepti mening kutganlarimdan oshib ketdi.',
+        saladReview: 'Men har doim o\'zimni salat ishqibozi deb hisoblaganman va bu salat retsepti - haqiqiy oshpazlik asari bo\'lib, yashil narsalarga bo\'lgan muhabbatimni yangi darajaga ko\'tardi.',
+
+        // Landing Page - Recipe Showcase
+        discoverCreateShare: 'Kashf qiling, Yarating, Baham ko\'ring',
+        popularRecipesWeek: 'Bu haftaning eng mashhur retseptlarini ko\'ring',
+        seeAll: 'Hammasini ko\'rish',
+        viewRecipe: 'Retseptni ko\'rish',
+        creamySalad: 'Kremli salat',
+        tofuSoup: 'Tofu va pomidor sho\'rva',
+        crunchyPotatoes: 'Xrustящий kartoshka',
+        mushroomSoup: 'Qo\'ziqorin sho\'rva',
+        raspberryPancake: 'Malina bilan pancake',
+        beefTeriyaki: 'Mol go\'shti teriyaki',
+        mins: 'daq',
+        serving: 'porsiya',
+        servings: 'porsiyalar',
+        easy: 'Oson',
+        medium: 'O\'rta',
+
+        // Landing Page - Mobile App
+        mobileAppTitle: 'Ovqat tayyorlash quvonchidan bahramand bo\'ling - iPhone yoki Android\'ga yuklab oling. Sizning oshxona sarguzashtingiz hozir boshlanadi!',
+        appStore: 'App Store',
+        googlePlay: 'Google Play',
+
+        // Landing Page - About
+        aboutUs: 'Biz haqimizda',
+        aboutText: 'Bizning retseptlarimiz oshpazlik jamiyatimizning qalbi va ruhi bo\'lib, ular sizga unutilmas va ajoyib ovqatlanish tajribasini taqdim etishga bo\'lgan sodiqligimizni aks ettiradi.',
+        quickRecipesTip: '50+ tez tayyorlanadigan retseptlar!',
         learnMore: 'Batafsil',
+
+        // Landing Page - Footer
+        menu: 'Menyu',
+        categories: 'Kategoriyalar',
+        social: 'Ijtimoiy tarmoqlar',
+        breakfast: 'Nonushta',
+        lunch: 'Tushlik',
+        dinner: 'Kechki ovqat',
+        dessert: 'Shirinlik',
+        drink: 'Ichimliklar',
+        instagram: 'Instagram',
+        twitter: 'Twitter',
+        youtube: 'Youtube',
+        facebook: 'Facebook',
+        newsletterSignup: 'Bizning yangiliklar xatimizga obuna bo\'ling',
+        emailPlaceholder: 'Sizning Email manzilingiz',
+        submit: 'Yuborish',
+        share: 'Baham ko\'rish',
+        like: 'Yoqdi',
 
         // Search & Filters
         search: 'Retsept qidirish...',

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import RecipeCard from '../components/RecipeCard';
+import API_URL from '../config/api';
 import './RecipesPage.css';
 
 const RecipesPage = () => {
@@ -37,11 +38,14 @@ const RecipesPage = () => {
             if (selectedCountry) params.append('country_id', selectedCountry);
             if (selectedCategory) params.append('category', selectedCategory);
 
-            const response = await axios.get(`http://localhost:5000/api/search?${params}`);
-            setRecipes(response.data.recipes);
+            const response = await axios.get(`${API_URL}/api/search?${params}`);
+            console.log('API Response:', response.data);
+            console.log('Recipes:', response.data.recipes);
+            console.log('Number of recipes:', response.data.recipes?.length);
+            setRecipes(response.data.recipes || []);
         } catch (err) {
             setError('Failed to fetch recipes');
-            console.error(err);
+            console.error('Error fetching recipes:', err);
         } finally {
             setLoading(false);
         }
@@ -49,7 +53,7 @@ const RecipesPage = () => {
 
     const fetchCountries = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/search/countries?lang=${language}`);
+            const response = await axios.get(`${API_URL}/api/search/countries?lang=${language}`);
             setCountries(response.data);
         } catch (err) {
             console.error('Failed to fetch countries:', err);
@@ -58,7 +62,12 @@ const RecipesPage = () => {
 
     const fetchFavorites = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/favorites');
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`${API_URL}/api/favorites`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             const favoriteIds = new Set(response.data.favorites.map(f => f.recipe_id));
             setFavorites(favoriteIds);
         } catch (err) {
@@ -73,19 +82,27 @@ const RecipesPage = () => {
         }
 
         try {
+            const token = localStorage.getItem('token');
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            };
+
             if (favorites.has(recipeId)) {
-                await axios.delete(`http://localhost:5000/api/favorites/${recipeId}`);
+                await axios.delete(`${API_URL}/api/favorites/${recipeId}`, config);
                 setFavorites(prev => {
                     const newSet = new Set(prev);
                     newSet.delete(recipeId);
                     return newSet;
                 });
             } else {
-                await axios.post(`http://localhost:5000/api/favorites/${recipeId}`);
+                await axios.post(`${API_URL}/api/favorites/${recipeId}`, {}, config);
                 setFavorites(prev => new Set([...prev, recipeId]));
             }
         } catch (err) {
             console.error('Failed to toggle favorite:', err);
+            alert(t('language') === 'ru' ? 'Ошибка при сохранении рецепта' : 'Retseptni saqlashda xatolik');
         }
     };
 

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import RecipeCard from '../components/RecipeCard';
+import API_URL from '../config/api';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
@@ -18,7 +19,12 @@ const ProfilePage = () => {
     const fetchFavorites = async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`http://localhost:5000/api/favorites?lang=${language}`);
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`${API_URL}/api/favorites?lang=${language}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             setFavorites(response.data.favorites);
         } catch (err) {
             console.error('Failed to fetch favorites:', err);
@@ -29,7 +35,12 @@ const ProfilePage = () => {
 
     const handleRemoveFavorite = async (recipeId) => {
         try {
-            await axios.delete(`http://localhost:5000/api/favorites/${recipeId}`);
+            const token = localStorage.getItem('token');
+            await axios.delete(`${API_URL}/api/favorites/${recipeId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             setFavorites(favorites.filter(f => f.recipe_id !== recipeId));
         } catch (err) {
             console.error('Failed to remove favorite:', err);
