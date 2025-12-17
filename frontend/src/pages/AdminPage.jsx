@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
-import API_URL from '../config/api';
 import './AdminPage.css';
 
 const AdminPage = () => {
@@ -40,7 +39,7 @@ const AdminPage = () => {
 
     const fetchRecipes = async () => {
         try {
-            const response = await axios.get(`${API_URL}/api/recipes?lang=${language}`);
+            const response = await axios.get(`/api/recipes?lang=${language}`);
             setRecipes(response.data.recipes);
         } catch (err) {
             console.error('Failed to fetch recipes:', err);
@@ -49,7 +48,7 @@ const AdminPage = () => {
 
     const fetchCountries = async () => {
         try {
-            const response = await axios.get(`${API_URL}/api/countries?lang=${language}`);
+            const response = await axios.get(`/api/countries?lang=${language}`);
             setCountries(response.data);
         } catch (err) {
             console.error('Failed to fetch countries:', err);
@@ -119,11 +118,11 @@ const AdminPage = () => {
 
         try {
             if (editingRecipe) {
-                await axios.put(`${API_URL}/api/recipes/${editingRecipe.recipe_id}`, data, {
+                await axios.put(`/api/recipes/${editingRecipe.recipe_id}`, data, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
             } else {
-                await axios.post(`${API_URL}/api/recipes`, data, {
+                await axios.post('/api/recipes', data, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
             }
@@ -149,7 +148,7 @@ const AdminPage = () => {
             cook_time_min: recipe.cook_time_min || '',
             original_servings: recipe.original_servings || 4,
             imageFile: null,
-            imagePreview: recipe.image_url ? `${API_URL}${recipe.image_url}` : null,
+            imagePreview: recipe.image_url ? `recipe.image_url` : null,
             steps: recipe.steps || [{ step_number: 1, description_ru: '', description_uz: '' }]
         });
         setShowForm(true);
@@ -158,7 +157,7 @@ const AdminPage = () => {
     const handleDelete = async (id) => {
         if (window.confirm(t('language') === 'ru' ? 'Удалить рецепт?' : 'Retseptni o\'chirish?')) {
             try {
-                await axios.delete(`${API_URL}/api/recipes/${id}`);
+                await axios.delete(`/api/recipes/${id}`);
                 fetchRecipes();
             } catch (err) {
                 console.error('Failed to delete recipe:', err);
@@ -169,7 +168,7 @@ const AdminPage = () => {
     const handleCreateCountry = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${API_URL}/api/countries`, newCountry);
+            await axios.post('/api/countries', newCountry);
             setShowCountryModal(false);
             setNewCountry({ name_ru: '', name_uz: '', flag_icon: '' });
             fetchCountries();
@@ -500,3 +499,4 @@ const AdminPage = () => {
 };
 
 export default AdminPage;
+

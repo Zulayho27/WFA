@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import RecipeCard from '../components/RecipeCard';
-import API_URL from '../config/api';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
@@ -20,7 +19,7 @@ const ProfilePage = () => {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`${API_URL}/api/favorites?lang=${language}`, {
+            const response = await axios.get(`/api/favorites?lang=${language}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -36,7 +35,7 @@ const ProfilePage = () => {
     const handleRemoveFavorite = async (recipeId) => {
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`${API_URL}/api/favorites/${recipeId}`, {
+            await axios.delete(`/api/favorites/${recipeId}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -89,3 +88,4 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+

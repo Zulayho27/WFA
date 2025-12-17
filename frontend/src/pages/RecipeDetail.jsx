@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import CookingMode from '../components/CookingMode';
-import API_URL from '../config/api';
 import './RecipeDetail.css';
 
 const RecipeDetail = () => {
@@ -30,7 +29,7 @@ const RecipeDetail = () => {
     const fetchRecipe = async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`${API_URL}/api/recipes/${id}?lang=${language}`);
+            const response = await axios.get(`/api/recipes/${id}?lang=${language}`);
             setRecipe(response.data);
             setServings(response.data.original_servings);
         } catch (err) {
@@ -44,7 +43,7 @@ const RecipeDetail = () => {
     const checkFavoriteStatus = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`${API_URL}/api/favorites/check/${id}`, {
+            const response = await axios.get(`/api/favorites/check/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -71,10 +70,10 @@ const RecipeDetail = () => {
             };
 
             if (isFavorite) {
-                await axios.delete(`${API_URL}/api/favorites/${id}`, config);
+                await axios.delete(`/api/favorites/${id}`, config);
                 setIsFavorite(false);
             } else {
-                await axios.post(`${API_URL}/api/favorites/${id}`, {}, config);
+                await axios.post(`/api/favorites/${id}`, {}, config);
                 setIsFavorite(true);
             }
         } catch (err) {
@@ -115,112 +114,114 @@ const RecipeDetail = () => {
         );
     }
 
-        ?`${API_URL}${recipe.image_url}`
+    const imageUrl = recipe.image_url
+        ? `recipe.image_url`
         : 'https://via.placeholder.com/1200x450?text=No+Image';
 
-return (
-    <div className="recipe-detail">
-        {/* Hero Section */}
-        <div className="recipe-hero">
-            <img src={imageUrl} alt={recipe.title} className="recipe-hero-image" />
-            <div className="recipe-hero-overlay">
-                <div className="container">
-                    <div className="recipe-hero-content">
-                        <div className="recipe-country-badge">
-                            <span className="country-flag-large">{recipe.flag_icon}</span>
-                            <span>{recipe.country_name}</span>
-                        </div>
-                        <h1 className="recipe-hero-title">{recipe.title}</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {/* Main Content */}
-        <div className="container recipe-container">
-            {/* Action Buttons */}
-            <div className="recipe-actions">
-                <button onClick={handleFavoriteToggle} className="btn btn-outline">
-                    {isFavorite ? '❤️' : '🤍'} {isFavorite ? t('removeFromFavorites') : t('addToFavorites')}
-                </button>
-                <button onClick={() => setCookingMode(true)} className="btn btn-primary">
-                    {t('startCookingMode')}
-                </button>
-            </div>
-
-            {/* Description */}
-            <section className="recipe-section">
-                <p className="recipe-description">{recipe.description}</p>
-            </section>
-
-            {/* Time & Servings Info */}
-            <div className="recipe-info-grid">
-                <div className="info-card">
-                    <span className="info-icon">⏱️</span>
-                    <div>
-                        <div className="info-label">{t('prepTime')}</div>
-                        <div className="info-value">{recipe.prep_time_min} {t('min')}</div>
-                    </div>
-                </div>
-                <div className="info-card">
-                    <span className="info-icon">🔥</span>
-                    <div>
-                        <div className="info-label">{t('cookTime')}</div>
-                        <div className="info-value">{recipe.cook_time_min} {t('min')}</div>
-                    </div>
-                </div>
-                <div className="info-card">
-                    <span className="info-icon">🍽️</span>
-                    <div>
-                        <div className="info-label">{t('servings')}</div>
-                        <div className="servings-adjuster">
-                            <button onClick={() => setServings(Math.max(1, servings - 1))}>−</button>
-                            <span>{servings}</span>
-                            <button onClick={() => setServings(servings + 1)}>+</button>
+    return (
+        <div className="recipe-detail">
+            {/* Hero Section */}
+            <div className="recipe-hero">
+                <img src={imageUrl} alt={recipe.title} className="recipe-hero-image" />
+                <div className="recipe-hero-overlay">
+                    <div className="container">
+                        <div className="recipe-hero-content">
+                            <div className="recipe-country-badge">
+                                <span className="country-flag-large">{recipe.flag_icon}</span>
+                                <span>{recipe.country_name}</span>
+                            </div>
+                            <h1 className="recipe-hero-title">{recipe.title}</h1>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Ingredients */}
-            <section className="recipe-section">
-                <h2>{t('ingredients')}</h2>
-                <div className="ingredients-list">
-                    {recipe.ingredients.map((ing) => (
-                        <div key={ing.ingredient_id} className="ingredient-item">
-                            <span className="ingredient-bullet">•</span>
-                            <span className="ingredient-name">{ing.name}</span>
-                            <span className="ingredient-quantity">
-                                {adjustIngredients(ing.quantity)} {ing.unit}
-                            </span>
-                        </div>
-                    ))}
+            {/* Main Content */}
+            <div className="container recipe-container">
+                {/* Action Buttons */}
+                <div className="recipe-actions">
+                    <button onClick={handleFavoriteToggle} className="btn btn-outline">
+                        {isFavorite ? '❤️' : '🤍'} {isFavorite ? t('removeFromFavorites') : t('addToFavorites')}
+                    </button>
+                    <button onClick={() => setCookingMode(true)} className="btn btn-primary">
+                        {t('startCookingMode')}
+                    </button>
                 </div>
-            </section>
 
-            {/* Instructions */}
-            <section className="recipe-section">
-                <h2>{t('instructions')}</h2>
-                <div className="steps-list">
-                    {recipe.steps.map((step) => (
-                        <div key={step.step_id} className="step-item">
-                            <div className="step-number">{step.step_number}</div>
-                            <div className="step-content">{step.description}</div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* Cultural Context */}
-            {recipe.cultural_context && (
-                <section className="recipe-section cultural-context">
-                    <h2>{t('culturalContext')}</h2>
-                    <p>{recipe.cultural_context}</p>
+                {/* Description */}
+                <section className="recipe-section">
+                    <p className="recipe-description">{recipe.description}</p>
                 </section>
-            )}
+
+                {/* Time & Servings Info */}
+                <div className="recipe-info-grid">
+                    <div className="info-card">
+                        <span className="info-icon">⏱️</span>
+                        <div>
+                            <div className="info-label">{t('prepTime')}</div>
+                            <div className="info-value">{recipe.prep_time_min} {t('min')}</div>
+                        </div>
+                    </div>
+                    <div className="info-card">
+                        <span className="info-icon">🔥</span>
+                        <div>
+                            <div className="info-label">{t('cookTime')}</div>
+                            <div className="info-value">{recipe.cook_time_min} {t('min')}</div>
+                        </div>
+                    </div>
+                    <div className="info-card">
+                        <span className="info-icon">🍽️</span>
+                        <div>
+                            <div className="info-label">{t('servings')}</div>
+                            <div className="servings-adjuster">
+                                <button onClick={() => setServings(Math.max(1, servings - 1))}>−</button>
+                                <span>{servings}</span>
+                                <button onClick={() => setServings(servings + 1)}>+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Ingredients */}
+                <section className="recipe-section">
+                    <h2>{t('ingredients')}</h2>
+                    <div className="ingredients-list">
+                        {recipe.ingredients.map((ing) => (
+                            <div key={ing.ingredient_id} className="ingredient-item">
+                                <span className="ingredient-bullet">•</span>
+                                <span className="ingredient-name">{ing.name}</span>
+                                <span className="ingredient-quantity">
+                                    {adjustIngredients(ing.quantity)} {ing.unit}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Instructions */}
+                <section className="recipe-section">
+                    <h2>{t('instructions')}</h2>
+                    <div className="steps-list">
+                        {recipe.steps.map((step) => (
+                            <div key={step.step_id} className="step-item">
+                                <div className="step-number">{step.step_number}</div>
+                                <div className="step-content">{step.description}</div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Cultural Context */}
+                {recipe.cultural_context && (
+                    <section className="recipe-section cultural-context">
+                        <h2>{t('culturalContext')}</h2>
+                        <p>{recipe.cultural_context}</p>
+                    </section>
+                )}
+            </div>
         </div>
-    </div>
-);
+    );
 };
 
 export default RecipeDetail;
+

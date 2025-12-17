@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import RecipeCard from '../components/RecipeCard';
-import API_URL from '../config/api';
 import './RecipesPage.css';
 
 const RecipesPage = () => {
@@ -38,7 +37,7 @@ const RecipesPage = () => {
             if (selectedCountry) params.append('country_id', selectedCountry);
             if (selectedCategory) params.append('category', selectedCategory);
 
-            const response = await axios.get(`${API_URL}/api/search?${params}`);
+            const response = await axios.get(`/api/search?${params}`);
             console.log('API Response:', response.data);
             console.log('Recipes:', response.data.recipes);
             console.log('Number of recipes:', response.data.recipes?.length);
@@ -53,7 +52,7 @@ const RecipesPage = () => {
 
     const fetchCountries = async () => {
         try {
-            const response = await axios.get(`${API_URL}/api/search/countries?lang=${language}`);
+            const response = await axios.get(`/api/search/countries?lang=${language}`);
             setCountries(response.data);
         } catch (err) {
             console.error('Failed to fetch countries:', err);
@@ -63,7 +62,7 @@ const RecipesPage = () => {
     const fetchFavorites = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`${API_URL}/api/favorites`, {
+            const response = await axios.get('/api/favorites', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -90,14 +89,14 @@ const RecipesPage = () => {
             };
 
             if (favorites.has(recipeId)) {
-                await axios.delete(`${API_URL}/api/favorites/${recipeId}`, config);
+                await axios.delete(`/api/favorites/${recipeId}`, config);
                 setFavorites(prev => {
                     const newSet = new Set(prev);
                     newSet.delete(recipeId);
                     return newSet;
                 });
             } else {
-                await axios.post(`${API_URL}/api/favorites/${recipeId}`, {}, config);
+                await axios.post(`/api/favorites/${recipeId}`, {}, config);
                 setFavorites(prev => new Set([...prev, recipeId]));
             }
         } catch (err) {
@@ -204,3 +203,4 @@ const RecipesPage = () => {
 };
 
 export default RecipesPage;
+
