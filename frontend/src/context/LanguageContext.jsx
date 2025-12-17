@@ -233,7 +233,6 @@ const translations = {
         finish: 'Tugatish',
 
         // Auth
-        email: 'Email',
         password: 'Parol',
         displayName: 'Ism',
         confirmPassword: 'Parolni tasdiqlang',
