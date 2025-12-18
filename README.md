@@ -46,7 +46,39 @@ npm start      # Start production server
 
 ## 📦 Deployment
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions for Vercel.
+### Vercel (Recommended)
+
+This project is configured for deployment on Vercel with serverless functions.
+
+**📘 See [DEPLOYMENT_GUIDE.md](.gemini/antigravity/brain/48c34bd2-62af-4ddc-8e01-5d522a0cec26/DEPLOYMENT_GUIDE.md) for detailed step-by-step instructions.**
+
+#### Quick Deploy Steps:
+
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Ready for deployment"
+   git push origin main
+   ```
+
+2. **Import to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Click "Import Project"
+   - Select your GitHub repository
+
+3. **Configure Environment Variables**
+   ```
+   POSTGRES_URL=your_supabase_connection_string
+   JWT_SECRET=your_jwt_secret
+   SUPABASE_URL=your_supabase_url
+   SUPABASE_KEY=your_supabase_key
+   NODE_ENV=production
+   ```
+
+4. **Deploy** 🚀
+
+See `.env.vercel.example` for environment variable template.
+
 
 ## 🛠️ Tech Stack
 
